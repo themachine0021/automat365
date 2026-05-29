@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Siemens QFM2160 Temperature & Humidity Duct Sensor: Practical Guide — Automat365</title>
+<style>
+  :root { --bg: #f5f5f5; --bg-white: #ffffff; --accent: #e07b00; --accent-light: #fff3e0; --accent2: #007a5e; --accent2-light: #e6f4f0; --text: #1a1a1a; --text-muted: #555555; --text-light: #888888; --border: #e0e0e0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; font-size: 15px; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--bg-white); border-bottom: 1px solid var(--border); height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; }
+  .logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+  .logo-mark { background: var(--accent); color: #fff; font-weight: 700; font-size: 0.85rem; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 5px; }
+  .logo-text { font-size: 1rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
+  .logo-text span { color: var(--accent); }
+  .nav-links { display: flex; gap: 0.1rem; list-style: none; }
+  .nav-links a { text-decoration: none; font-size: 0.82rem; color: var(--text-muted); padding: 0.4rem 0.85rem; border-radius: 4px; }
+  .nav-links a:hover { background: var(--bg); color: var(--text); }
+  .article-wrapper { max-width: 740px; margin: 0 auto; padding: 100px 2rem 5rem; }
+  .breadcrumb { display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; color: var(--text-light); margin-bottom: 2rem; flex-wrap: wrap; }
+  .breadcrumb a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .breadcrumb span { color: var(--border); }
+  .article-tag { display: inline-block; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); background: var(--accent2-light); padding: 0.2rem 0.6rem; border-radius: 3px; margin-bottom: 1rem; font-weight: 600; }
+  .article-title { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; color: var(--text); margin-bottom: 1rem; }
+  .article-meta { display: flex; align-items: center; gap: 1.25rem; font-size: 0.78rem; color: var(--text-light); padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); margin-bottom: 2rem; flex-wrap: wrap; }
+  .article-meta strong { color: var(--text-muted); font-weight: 600; }
+  .article-body { background: var(--bg-white); border: 1px solid var(--border); border-radius: 8px; padding: 2.5rem; }
+  .article-body p { font-size: 0.97rem; color: var(--text-muted); line-height: 1.9; margin-bottom: 1.4rem; }
+  .article-body h2 { font-size: 1.2rem; font-weight: 700; color: var(--text); margin: 2rem 0 0.75rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+  .article-body h2:first-child { border-top: none; padding-top: 0; margin-top: 0; }
+  .article-body h3 { font-size: 1rem; font-weight: 700; color: var(--text); margin: 1.5rem 0 0.5rem; }
+  .article-body ul, .article-body ol { margin: 0.5rem 0 1.4rem 1.5rem; color: var(--text-muted); font-size: 0.95rem; line-height: 1.85; }
+  .article-body li { margin-bottom: 0.4rem; }
+  .article-body strong { color: var(--text); font-weight: 700; }
+  .article-body blockquote { border-left: 3px solid var(--accent); background: var(--accent-light); padding: 1rem 1.25rem; margin: 1.5rem 0; border-radius: 0 6px 6px 0; font-size: 0.95rem; color: var(--text-muted); font-style: italic; }
+  .article-body .callout { background: var(--accent2-light); border: 1px solid #b2d8cf; border-radius: 6px; padding: 1rem 1.25rem; margin: 1.5rem 0; font-size: 0.88rem; color: var(--accent2); font-weight: 600; }
+  .article-footer { margin-top: 2.5rem; display: flex; align-items: center; justify-content: space-between; padding-top: 1.5rem; border-top: 1px solid var(--border); gap: 1rem; flex-wrap: wrap; }
+  .btn-back { text-decoration: none; font-size: 0.82rem; font-weight: 600; padding: 0.6rem 1.2rem; border-radius: 4px; border: 1px solid var(--border); color: var(--text-muted); background: var(--bg); }
+  .btn-back:hover { background: var(--text); color: #fff; }
+  .btn-next { text-decoration: none; font-size: 0.82rem; font-weight: 600; padding: 0.6rem 1.2rem; border-radius: 4px; background: var(--accent); color: #fff; border: 1px solid var(--accent); }
+  .btn-next:hover { background: #c96d00; }
+  .related { margin-top: 3rem; }
+  .related-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-light); font-weight: 600; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+  .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+  .related-card { background: var(--bg-white); border: 1px solid var(--border); border-radius: 7px; padding: 1.1rem; text-decoration: none; display: block; transition: all 0.15s; }
+  .related-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .related-card .rtag { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); font-weight: 600; margin-bottom: 0.4rem; display: block; }
+  .related-card h4 { font-size: 0.85rem; font-weight: 700; color: var(--text); line-height: 1.4; }
+  footer { background: var(--text); color: #ccc; padding: 2rem; text-align: center; margin-top: 4rem; }
+  .footer-logo { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0.25rem; }
+  .footer-logo span { color: var(--accent); }
+  .footer-credit { font-size: 0.73rem; color: #666; margin-top: 0.5rem; }
+  .footer-credit strong { color: #aaa; }
+  @media (max-width: 768px) { nav { padding: 0 1.25rem; } .nav-links { display: none; } .article-wrapper { padding: 80px 1.25rem 3rem; } .article-body { padding: 1.5rem; } }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo"><span class="logo-mark">A365</span><span class="logo-text">Automat<span>365</span></span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#home">Home</a></li>
+    <li><a href="index.html#trending">Building Automation</a></li>
+    <li><a href="index.html#insights">Industrial Automation</a></li>
+    <li><a href="index.html#whatsnew">Blog / News</a></li>
+    <li><a href="index.html#about">About</a></li>
+  </ul>
+</nav>
+<div class="article-wrapper">
+  <div class="breadcrumb">
+    <a href="index.html">Home</a><span>›</span>
+    <a href="index.html#trending">Building Automation</a><span>›</span>
+    <span>Siemens QFM2160 Temperature & Humidity Duct Sensor: Practical Guide</span>
+  </div>
+  <span class="article-tag">Product Guide</span>
+  <h1 class="article-title">Siemens QFM2160 Temperature & Humidity Duct Sensor: Practical Guide</h1>
+  <div class="article-meta">
+    <span>By <strong>Homer Velasco</strong></span>
+    <span>May 2025</span>
+    <span>7 min read</span>
+  </div>
+  <div class="article-body">
+    <p>If you work in building automation, you will see the Siemens QFM2160 everywhere. It is a rugged duct-mounted sensor that feeds both relative humidity (RH) and temperature (T) to your BMS/PLC — perfect for supply, return, and mixed-air control loops. Here is the quick, field-ready rundown.</p>
+    <h2>What Is It?</h2>
+    <p>The QFM2160 is a duct sensor that measures:</p>
+    <ul>
+      <li>Relative humidity: 0–100 %RH (capacitive element)</li>
+      <li>Air temperature: selectable range (0..50 °C; -35..+35 °C; -40..+70 °C)</li>
+      <li>Accuracy: ±3 %RH in the comfort band; typical temp accuracy ±0.3 K at 23 °C</li>
+    </ul>
+    <p>It is part of Siemens&apos; Symaro line and is powered by 24 V AC or 13.5–35 V DC.</p>
+    <h2>What Signal Does It Use?</h2>
+    <p>You can wire it for active voltage or active current outputs — independently for RH and T:</p>
+    <ul>
+      <li>Humidity output: 0–10 V, 0–5 V, or 4–20 mA</li>
+      <li>Temperature output: 0–10 V, 0–5 V, or 4–20 mA (not loop-powered)</li>
+      <li>The QFM2160 is a 3-wire device when used with 4–20 mA output</li>
+      <li>Temperature measuring range is selectable via onboard jumper</li>
+    </ul>
+    <h2>Typical Applications</h2>
+    <ul>
+      <li>Supply/return air control (humidity or temp PID loops)</li>
+      <li>Dew-point shift/reference sensing for reheat/dehumidification strategies</li>
+      <li>Humidifier safety/limit sensing (steam or atomizing)</li>
+      <li>Trending/indication in BMS, and enthalpy/absolute humidity calculations</li>
+    </ul>
+    <h2>Power Supply and Wiring Explained</h2>
+    <p>The QFM2160 requires a 24 VAC step-down transformer. The transformer provides low-voltage power to the sensor. Connections from transformer to sensor use:</p>
+    <ul>
+      <li>Red wire (G): 24 V AC "System Potential" (live)</li>
+      <li>Black wire (G0): 24 V AC "System Neutral"</li>
+    </ul>
+    <p>The sensor provides two analog outputs — one for humidity (U1, green wire) and one for temperature (U2, yellow wire) — as active analog signals (0–10 V or 4–20 mA).</p>
+    <h2>Key Dos and Don&apos;ts</h2>
+    <ul>
+      <li>✅ Always power the sensor with 24 VAC (or DC) — never directly from 220 V.</li>
+      <li>✅ Keep signal wires (U1, U2) separate from high-voltage cables to avoid interference.</li>
+      <li>✅ Use G0 (system neutral) as a common reference between the sensor and controller.</li>
+      <li>✅ Configure the jumpers on the QFM2160 for the desired output range before wiring.</li>
+      <li>❌ Don&apos;t share the transformer with noisy loads (contactors, VFDs) unless designed for building automation.</li>
+      <li>❌ Don&apos;t leave the G0 (neutral) floating — the analog inputs need a proper reference.</li>
+      <li>❌ Don&apos;t short U1/U2 to ground; they must connect only to controller AI inputs.</li>
+    </ul>
+    <div class="callout">💡 In short: G & G0 = Sensor power (24 VAC) · U1 = Humidity signal (to AI input) · U2 = Temperature signal (to AI input) · G0 also ties into the controller&apos;s common for proper signal reference.</div>
+    <h2>Conclusion</h2>
+    <p>The Siemens QFM2160 sensor is a reliable choice for measuring both temperature and humidity in duct applications. By supplying the sensor with 24 VAC (G and G0) from a step-down transformer and connecting its two separate signals (U1 for humidity, U2 for temperature) to the controller&apos;s analog input module, the BMS/PLC can continuously monitor air conditions for accurate control. When installed correctly — away from condensation, wired with clean signal separation, and scaled properly in the controller — the QFM2160 delivers long-term accuracy and dependable performance in automation projects.</p>
+  </div>
+  <div class="article-footer">
+    <a href="index.html" class="btn-back">← Back to Home</a>
+    <a href="smoke-fire-detectors.html" class="btn-next">Next: Smoke & Fire Detectors →</a>
+  </div>
+  <div class="related">
+    <p class="related-label">Related Articles</p>
+    <div class="related-grid">
+      <a href="temperature-humidity-sensors.html" class="related-card"><span class="rtag">Sensors</span><h4>Temperature & Humidity Sensors</h4></a>
+      <a href="sensorworx-swx-201-2.html" class="related-card"><span class="rtag">Product Guide</span><h4>Sensorworx SWX-201-2: Ceiling Mount Sensor</h4></a>
+      <a href="what-is-building-automation.html" class="related-card"><span class="rtag">Beginner Guide</span><h4>What is Building Automation?</h4></a>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="footer-logo">Automat<span>365</span></div>
+  <p class="footer-credit">by <strong>Homer Velasco</strong> &nbsp;·&nbsp; Founder of Automat365 &nbsp;·&nbsp; Enthusiast in Building & Industrial Automation</p>
+</footer>
+</body>
+</html>

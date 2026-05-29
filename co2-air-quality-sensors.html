@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CO₂ & Air Quality Sensors: Breathing Smarter Indoors — Automat365</title>
+<style>
+  :root { --bg: #f5f5f5; --bg-white: #ffffff; --accent: #e07b00; --accent-light: #fff3e0; --accent2: #007a5e; --accent2-light: #e6f4f0; --text: #1a1a1a; --text-muted: #555555; --text-light: #888888; --border: #e0e0e0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; font-size: 15px; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--bg-white); border-bottom: 1px solid var(--border); height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; }
+  .logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+  .logo-mark { background: var(--accent); color: #fff; font-weight: 700; font-size: 0.85rem; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 5px; }
+  .logo-text { font-size: 1rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
+  .logo-text span { color: var(--accent); }
+  .nav-links { display: flex; gap: 0.1rem; list-style: none; }
+  .nav-links a { text-decoration: none; font-size: 0.82rem; color: var(--text-muted); padding: 0.4rem 0.85rem; border-radius: 4px; transition: all 0.15s; }
+  .nav-links a:hover { background: var(--bg); color: var(--text); }
+  .article-wrapper { max-width: 740px; margin: 0 auto; padding: 100px 2rem 5rem; }
+  .breadcrumb { display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; color: var(--text-light); margin-bottom: 2rem; flex-wrap: wrap; }
+  .breadcrumb a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .breadcrumb span { color: var(--border); }
+  .article-tag { display: inline-block; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); background: var(--accent2-light); padding: 0.2rem 0.6rem; border-radius: 3px; margin-bottom: 1rem; font-weight: 600; }
+  .article-title { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; color: var(--text); margin-bottom: 1rem; }
+  .article-meta { display: flex; align-items: center; gap: 1.25rem; font-size: 0.78rem; color: var(--text-light); padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); margin-bottom: 2rem; flex-wrap: wrap; }
+  .article-meta strong { color: var(--text-muted); font-weight: 600; }
+  .article-body { background: var(--bg-white); border: 1px solid var(--border); border-radius: 8px; padding: 2.5rem; }
+  .article-body p { font-size: 0.97rem; color: var(--text-muted); line-height: 1.9; margin-bottom: 1.4rem; }
+  .article-body h2 { font-size: 1.2rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin: 2rem 0 0.75rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+  .article-body h2:first-child { border-top: none; padding-top: 0; margin-top: 0; }
+  .article-body h3 { font-size: 1rem; font-weight: 700; color: var(--text); margin: 1.5rem 0 0.5rem; }
+  .article-body ul, .article-body ol { margin: 0.5rem 0 1.4rem 1.5rem; color: var(--text-muted); font-size: 0.95rem; line-height: 1.85; }
+  .article-body li { margin-bottom: 0.4rem; }
+  .article-body strong { color: var(--text); font-weight: 700; }
+  .article-body blockquote { border-left: 3px solid var(--accent); background: var(--accent-light); padding: 1rem 1.25rem; margin: 1.5rem 0; border-radius: 0 6px 6px 0; font-size: 0.95rem; color: var(--text-muted); font-style: italic; }
+  .article-body .callout { background: var(--accent2-light); border: 1px solid #b2d8cf; border-radius: 6px; padding: 1rem 1.25rem; margin: 1.5rem 0; font-size: 0.88rem; color: var(--accent2); font-weight: 600; }
+  .article-footer { margin-top: 2.5rem; display: flex; align-items: center; justify-content: space-between; padding-top: 1.5rem; border-top: 1px solid var(--border); gap: 1rem; flex-wrap: wrap; }
+  .btn-back { text-decoration: none; font-size: 0.82rem; font-weight: 600; padding: 0.6rem 1.2rem; border-radius: 4px; border: 1px solid var(--border); color: var(--text-muted); background: var(--bg); transition: all 0.15s; }
+  .btn-back:hover { background: var(--text); color: #fff; border-color: var(--text); }
+  .btn-next { text-decoration: none; font-size: 0.82rem; font-weight: 600; padding: 0.6rem 1.2rem; border-radius: 4px; background: var(--accent); color: #fff; border: 1px solid var(--accent); transition: all 0.15s; }
+  .btn-next:hover { background: #c96d00; }
+  .related { margin-top: 3rem; }
+  .related-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-light); font-weight: 600; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+  .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+  .related-card { background: var(--bg-white); border: 1px solid var(--border); border-radius: 7px; padding: 1.1rem; text-decoration: none; transition: all 0.15s; display: block; }
+  .related-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .related-card .rtag { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); font-weight: 600; margin-bottom: 0.4rem; display: block; }
+  .related-card h4 { font-size: 0.85rem; font-weight: 700; color: var(--text); line-height: 1.4; }
+  footer { background: var(--text); color: #ccc; padding: 2rem; text-align: center; margin-top: 4rem; }
+  .footer-logo { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0.25rem; }
+  .footer-logo span { color: var(--accent); }
+  .footer-credit { font-size: 0.73rem; color: #666; margin-top: 0.5rem; }
+  .footer-credit strong { color: #aaa; }
+  @media (max-width: 768px) { nav { padding: 0 1.25rem; } .nav-links { display: none; } .article-wrapper { padding: 80px 1.25rem 3rem; } .article-body { padding: 1.5rem; } }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo"><span class="logo-mark">A365</span><span class="logo-text">Automat<span>365</span></span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#home">Home</a></li>
+    <li><a href="index.html#trending">Building Automation</a></li>
+    <li><a href="index.html#insights">Industrial Automation</a></li>
+    <li><a href="index.html#whatsnew">Blog / News</a></li>
+    <li><a href="index.html#about">About</a></li>
+  </ul>
+</nav>
+<div class="article-wrapper">
+  <div class="breadcrumb">
+    <a href="index.html">Home</a><span>›</span>
+    <a href="index.html#trending">Building Automation</a><span>›</span>
+    <span>CO₂ & Air Quality Sensors</span>
+  </div>
+  <span class="article-tag">Sensors — Input Devices</span>
+  <h1 class="article-title">CO₂ & Air Quality Sensors: Breathing Smarter Indoors</h1>
+  <div class="article-meta">
+    <span>By <strong>Homer Velasco</strong></span>
+    <span>May 2025</span>
+    <span>7 min read</span>
+  </div>
+  <div class="article-body">
+    <p>Indoor air quality (IAQ) plays a major role in our health, comfort, and productivity — yet it's something many people overlook. With most of us spending up to 90% of our time indoors, monitoring the air we breathe has never been more important. That's where CO₂ and air quality sensors come in.</p>
+
+    <h2>Why Air Quality Matters</h2>
+    <p>Poor indoor air quality can lead to headaches, fatigue, respiratory issues, and even reduced cognitive performance. High concentrations of carbon dioxide (CO₂), volatile organic compounds (VOCs), and other pollutants can make indoor spaces feel stuffy and unhealthy. Businesses, schools, and homes all benefit from real-time monitoring to ensure fresh, breathable air.</p>
+
+    <h2>What CO₂ & Air Quality Sensors Do</h2>
+    <p>Air quality sensors continuously measure indoor conditions to give a clear picture of what's happening in real time. Common measurements include:</p>
+    <ul>
+      <li><strong>CO₂ Levels</strong> — High CO₂ concentrations can cause drowsiness and reduced focus.</li>
+      <li><strong>Particulate Matter (PM2.5 & PM10)</strong> — Tiny airborne particles that affect respiratory health.</li>
+      <li><strong>VOC Detection</strong> — Identifies harmful gases from paints, cleaners, or furniture.</li>
+      <li><strong>Temperature & Humidity</strong> — Important for comfort and mold prevention.</li>
+    </ul>
+    <p>These sensors provide actionable insights, often with connected apps or integration into smart building systems.</p>
+
+    <h2>Benefits of Using CO₂ & Air Quality Sensors</h2>
+    <ol>
+      <li><strong>Health & Well-being</strong> — Maintain oxygen-rich air to improve alertness, mood, and overall health.</li>
+      <li><strong>Energy Efficiency</strong> — Optimize HVAC systems by ventilating only when necessary, reducing unnecessary energy use.</li>
+      <li><strong>Productivity Boost</strong> — Studies show people think and work better in well-ventilated environments.</li>
+      <li><strong>Regulatory Compliance</strong> — Helps meet safety and building standards for schools, offices, and commercial facilities.</li>
+    </ol>
+
+    <h2>How CO₂ Sensors Regulate AHUs to Keep Indoor Air Clean and Fresh</h2>
+    <p>Indoor spaces such as conference rooms, offices, and classrooms can quickly feel stuffy when occupied by many people. The culprit is often carbon dioxide (CO₂) buildup. When exhaled CO₂ accumulates beyond safe levels, it reduces oxygen availability, leading to drowsiness, lack of focus, and discomfort. This is where CO₂ sensors integrated with Air Handling Units (AHUs) play a crucial role in maintaining indoor air quality.</p>
+
+    <h3>How It Works</h3>
+    <ol>
+      <li><strong>CO₂ Monitoring in the Breathing Zone</strong> — A CO₂ sensor is installed in the occupied zone. It continuously monitors CO₂ concentration in real time.</li>
+      <li><strong>Signal to the AHU</strong> — When CO₂ levels rise above a set threshold (e.g., 1,000 ppm), the sensor sends a signal to the Direct Digital Controller (DDC). The DDC communicates with the AHU's actuators and dampers.</li>
+      <li><strong>Fresh Air Regulation</strong> — The AHU adjusts air dampers to bring in more fresh outdoor air while reducing recirculated air. This dilutes CO₂ concentration and improves overall air freshness.</li>
+      <li><strong>Return to Normal Operation</strong> — Once CO₂ levels drop to acceptable levels, the dampers adjust back, minimizing unnecessary energy use.</li>
+    </ol>
+
+    <h3>Benefits of CO₂-Controlled AHUs</h3>
+    <ul>
+      <li><strong>Cleaner, Fresher Air</strong> — Constant adjustment ensures oxygen-rich, comfortable indoor air.</li>
+      <li><strong>Energy Efficiency</strong> — Fresh air is introduced only when needed, preventing wasteful over-ventilation.</li>
+      <li><strong>Health & Productivity</strong> — Lower CO₂ levels improve concentration, reduce fatigue, and promote well-being.</li>
+      <li><strong>Smart Building Integration</strong> — Seamlessly works with building automation systems for optimal climate control.</li>
+    </ul>
+
+    <div class="callout">💡 Real-World Example: Imagine a conference room with 20 people inside. Within 30 minutes, CO₂ levels rise due to exhalation. With a CO₂ sensor-linked AHU, the sensor detects the rise, the AHU opens dampers to bring in fresh outdoor air, and circulation improves — the room feels fresh again. This process repeats automatically, ensuring a healthy and energy-efficient indoor environment.</div>
+
+    <h2>Final Thoughts</h2>
+    <p>By combining CO₂ sensors with AHUs, buildings achieve the perfect balance between fresh air supply and energy savings. It's a smart approach to creating healthier indoor spaces — where people can breathe easier, think clearer, and feel more comfortable.</p>
+  </div>
+  <div class="article-footer">
+    <a href="index.html" class="btn-back">← Back to Home</a>
+    <a href="lighting-automation.html" class="btn-next">Next: Lighting Automation →</a>
+  </div>
+  <div class="related">
+    <p class="related-label">Related Articles</p>
+    <div class="related-grid">
+      <a href="temperature-humidity-sensors.html" class="related-card"><span class="rtag">Sensors</span><h4>Temperature & Humidity Sensors</h4></a>
+      <a href="occupancy-motion-sensors.html" class="related-card"><span class="rtag">Sensors</span><h4>Occupancy & Motion Sensors: The Eyes of Smart Buildings</h4></a>
+      <a href="what-is-building-automation.html" class="related-card"><span class="rtag">Beginner Guide</span><h4>What is Building Automation? A Beginner's Guide</h4></a>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="footer-logo">Automat<span>365</span></div>
+  <p class="footer-credit">by <strong>Homer Velasco</strong> &nbsp;·&nbsp; Founder of Automat365 &nbsp;·&nbsp; Enthusiast in Building & Industrial Automation</p>
+</footer>
+</body>
+</html>
