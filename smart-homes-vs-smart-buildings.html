@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Homes vs. Smart Buildings: Key Differences — Automat365</title>
+<style>
+  :root { --bg: #f5f5f5; --bg-white: #ffffff; --accent: #e07b00; --accent-light: #fff3e0; --accent2: #007a5e; --accent2-light: #e6f4f0; --text: #1a1a1a; --text-muted: #555555; --text-light: #888888; --border: #e0e0e0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; font-size: 15px; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--bg-white); border-bottom: 1px solid var(--border); height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; }
+  .logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+  .logo-mark { background: var(--accent); color: #fff; font-weight: 700; font-size: 0.85rem; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 5px; }
+  .logo-text { font-size: 1rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
+  .logo-text span { color: var(--accent); }
+  .nav-links { display: flex; gap: 0.1rem; list-style: none; }
+  .nav-links a { text-decoration: none; font-size: 0.82rem; color: var(--text-muted); padding: 0.4rem 0.85rem; border-radius: 4px; transition: all 0.15s; }
+  .nav-links a:hover { background: var(--bg); color: var(--text); }
+  .article-wrapper { max-width: 740px; margin: 0 auto; padding: 100px 2rem 5rem; }
+  .breadcrumb { display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; color: var(--text-light); margin-bottom: 2rem; }
+  .breadcrumb a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .breadcrumb span { color: var(--border); }
+  .article-tag { display: inline-block; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); background: var(--accent2-light); padding: 0.2rem 0.6rem; border-radius: 3px; margin-bottom: 1rem; font-weight: 600; }
+  .article-title { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; color: var(--text); margin-bottom: 1rem; }
+  .article-meta { display: flex; align-items: center; gap: 1.25rem; font-size: 0.78rem; color: var(--text-light); padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); margin-bottom: 2rem; flex-wrap: wrap; }
+  .article-meta strong { color: var(--text-muted); font-weight: 600; }
+  .article-body { background: var(--bg-white); border: 1px solid var(--border); border-radius: 8px; padding: 2.5rem; }
+  .article-body p { font-size: 0.97rem; color: var(--text-muted); line-height: 1.9; margin-bottom: 1.4rem; }
+  .article-body h2 { font-size: 1.2rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin: 2rem 0 0.75rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+  .article-body h2:first-child { border-top: none; padding-top: 0; margin-top: 0; }
+  .article-body ul, .article-body ol { margin: 0.5rem 0 1.4rem 1.5rem; color: var(--text-muted); font-size: 0.95rem; line-height: 1.85; }
+  .article-body li { margin-bottom: 0.35rem; }
+  .article-body strong { color: var(--text); font-weight: 700; }
+  .article-body blockquote { border-left: 3px solid var(--accent); background: var(--accent-light); padding: 1rem 1.25rem; margin: 1.5rem 0; border-radius: 0 6px 6px 0; font-size: 0.95rem; color: var(--text-muted); font-style: italic; }
+  .article-body .callout { background: var(--accent2-light); border: 1px solid #b2d8cf; border-radius: 6px; padding: 1rem 1.25rem; margin: 1.5rem 0; font-size: 0.88rem; color: var(--accent2); font-weight: 600; }
+  .compare-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.88rem; }
+  .compare-table th { background: var(--bg); font-weight: 700; color: var(--text); padding: 0.75rem 1rem; text-align: left; border: 1px solid var(--border); }
+  .compare-table td { padding: 0.65rem 1rem; border: 1px solid var(--border); color: var(--text-muted); vertical-align: top; }
+  .compare-table tr:nth-child(even) td { background: var(--bg); }
+  .article-footer { margin-top: 2.5rem; display: flex; align-items: center; justify-content: space-between; padding-top: 1.5rem; border-top: 1px solid var(--border); gap: 1rem; flex-wrap: wrap; }
+  .btn-back { text-decoration: none; font-size: 0.82rem; font-weight: 600; padding: 0.6rem 1.2rem; border-radius: 4px; border: 1px solid var(--border); color: var(--text-muted); background: var(--bg); transition: all 0.15s; }
+  .btn-back:hover { background: var(--text); color: #fff; border-color: var(--text); }
+  .btn-next { text-decoration: none; font-size: 0.82rem; font-weight: 600; padding: 0.6rem 1.2rem; border-radius: 4px; background: var(--accent); color: #fff; border: 1px solid var(--accent); transition: all 0.15s; }
+  .btn-next:hover { background: #c96d00; border-color: #c96d00; }
+  .related { margin-top: 3rem; }
+  .related-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-light); font-weight: 600; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+  .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+  .related-card { background: var(--bg-white); border: 1px solid var(--border); border-radius: 7px; padding: 1.1rem; text-decoration: none; transition: all 0.15s; display: block; }
+  .related-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .related-card .rtag { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); font-weight: 600; margin-bottom: 0.4rem; display: block; }
+  .related-card h4 { font-size: 0.85rem; font-weight: 700; color: var(--text); line-height: 1.4; }
+  footer { background: var(--text); color: #ccc; padding: 2rem; text-align: center; margin-top: 4rem; }
+  .footer-logo { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0.25rem; }
+  .footer-logo span { color: var(--accent); }
+  .footer-credit { font-size: 0.73rem; color: #666; margin-top: 0.5rem; }
+  .footer-credit strong { color: #aaa; }
+  @media (max-width: 768px) { nav { padding: 0 1.25rem; } .nav-links { display: none; } .article-wrapper { padding: 80px 1.25rem 3rem; } .article-body { padding: 1.5rem; } }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo"><span class="logo-mark">A365</span><span class="logo-text">Automat<span>365</span></span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#home">Home</a></li>
+    <li><a href="index.html#trending">Building Automation</a></li>
+    <li><a href="index.html#insights">Industrial Automation</a></li>
+    <li><a href="index.html#whatsnew">Blog / News</a></li>
+    <li><a href="index.html#about">About</a></li>
+  </ul>
+</nav>
+<div class="article-wrapper">
+  <div class="breadcrumb">
+    <a href="index.html">Home</a><span>›</span>
+    <a href="index.html#trending">Building Automation</a><span>›</span>
+    <span>Smart Homes vs. Smart Buildings</span>
+  </div>
+  <span class="article-tag">Smart Buildings</span>
+  <h1 class="article-title">Smart Homes vs. Smart Buildings: Key Differences</h1>
+  <div class="article-meta">
+    <span>By <strong>Homer Velasco</strong></span>
+    <span>May 2025</span>
+    <span>6 min read</span>
+  </div>
+  <div class="article-body">
+    <p>You've probably heard both terms — smart home and smart building — sometimes used interchangeably. But while they share some of the same technology, they serve very different purposes, operate at different scales, and are designed for different users. Understanding the distinction is important whether you're a homeowner curious about automation or a professional working in the built environment.</p>
+
+    <h2>What is a Smart Home?</h2>
+    <p>A smart home uses connected devices and automation to make residential living more convenient, comfortable, and energy-efficient. These systems are typically consumer-grade, designed to be installed and operated by homeowners without specialized technical knowledge.</p>
+    <p>Common smart home features include voice-controlled assistants (like Amazon Alexa or Google Home), smart thermostats (like Nest), automated lighting, smart locks, security cameras, and connected appliances. Most of these devices connect through Wi-Fi or Zigbee and are managed through a smartphone app.</p>
+
+    <h2>What is a Smart Building?</h2>
+    <p>A smart building applies automation at a much larger and more complex scale — typically commercial, industrial, or institutional facilities like office towers, hospitals, airports, shopping centers, and schools. These systems are enterprise-grade, designed and maintained by trained engineers and technicians.</p>
+    <p>Smart buildings use a Building Automation System (BAS) to integrate and centrally manage HVAC, lighting, security, fire safety, elevators, and energy systems. The goal isn't just convenience — it's operational efficiency, occupant safety, regulatory compliance, and long-term cost reduction.</p>
+
+    <h2>Side-by-Side Comparison</h2>
+    <table class="compare-table">
+      <tr><th>Feature</th><th>Smart Home</th><th>Smart Building</th></tr>
+      <tr><td>Scale</td><td>Single residence</td><td>Commercial / multi-floor facilities</td></tr>
+      <tr><td>Users</td><td>Homeowners, residents</td><td>Facility managers, engineers, technicians</td></tr>
+      <tr><td>Protocols</td><td>Wi-Fi, Zigbee, Z-Wave</td><td>BACnet, Modbus, LonWorks, KNX</td></tr>
+      <tr><td>Complexity</td><td>Low to moderate</td><td>High — integrated, enterprise-grade</td></tr>
+      <tr><td>Management</td><td>Mobile app, voice control</td><td>Central BMS/HMI dashboard</td></tr>
+      <tr><td>Primary Goal</td><td>Convenience and comfort</td><td>Efficiency, safety, compliance</td></tr>
+      <tr><td>Installation</td><td>DIY or simple install</td><td>Professional design and commissioning</td></tr>
+    </table>
+
+    <h2>Where They Overlap</h2>
+    <p>The line between smart homes and smart buildings is blurring. High-end residential complexes and luxury apartments are now adopting BAS-grade systems. Meanwhile, technologies that originated in commercial buildings — like occupancy-based HVAC control and advanced energy monitoring — are now available in consumer products.</p>
+    <div class="callout">💡 The emergence of "smart apartments" and mixed-use developments is creating a new middle ground where residential and commercial automation converge.</div>
+
+    <h2>Which One is Right for You?</h2>
+    <p>If you're a homeowner or renter looking to add convenience and save on energy bills, smart home products are a practical and affordable option. Most can be installed without professional help and offer meaningful benefits with minimal investment.</p>
+    <p>If you work in facilities management, engineering, or construction — or if you're responsible for a commercial or institutional building — you're operating in the smart building space, where the stakes, complexity, and rewards are all on a much larger scale.</p>
+
+    <h2>Conclusion</h2>
+    <p>Smart homes and smart buildings both represent the future of how we interact with the spaces around us — but they are distinct disciplines with different tools, standards, and goals. Understanding the difference helps you ask better questions, choose the right solutions, and appreciate the depth of the automation world.</p>
+  </div>
+  <div class="article-footer">
+    <a href="index.html" class="btn-back">← Back to Home</a>
+    <a href="ai-in-automation.html" class="btn-next">Next: AI in Automation →</a>
+  </div>
+  <div class="related">
+    <p class="related-label">Related Articles</p>
+    <div class="related-grid">
+      <a href="what-is-building-automation.html" class="related-card"><span class="rtag">Beginner Guide</span><h4>What is Building Automation? A Beginner's Guide</h4></a>
+      <a href="future-of-building-automation.html" class="related-card"><span class="rtag">Future</span><h4>The Future of Building Automation: Smarter, Greener, Safer</h4></a>
+      <a href="rise-of-iot-everyday-life.html" class="related-card"><span class="rtag">IoT</span><h4>The Rise of IoT in Everyday Life</h4></a>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="footer-logo">Automat<span>365</span></div>
+  <p class="footer-credit">by <strong>Homer Velasco</strong> &nbsp;·&nbsp; Founder of Automat365 &nbsp;·&nbsp; Enthusiast in Building & Industrial Automation</p>
+</footer>
+</body>
+</html>

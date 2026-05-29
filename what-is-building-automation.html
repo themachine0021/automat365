@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What is Building Automation? A Beginner's Guide — Automat365</title>
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --bg-white: #ffffff;
+    --accent: #e07b00;
+    --accent-light: #fff3e0;
+    --accent2: #007a5e;
+    --accent2-light: #e6f4f0;
+    --text: #1a1a1a;
+    --text-muted: #555555;
+    --text-light: #888888;
+    --border: #e0e0e0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; font-size: 15px; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--bg-white); border-bottom: 1px solid var(--border); height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; }
+  .logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+  .logo-mark { background: var(--accent); color: #fff; font-weight: 700; font-size: 0.85rem; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 5px; }
+  .logo-text { font-size: 1rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
+  .logo-text span { color: var(--accent); }
+  .nav-links { display: flex; gap: 0.1rem; list-style: none; }
+  .nav-links a { text-decoration: none; font-size: 0.82rem; color: var(--text-muted); padding: 0.4rem 0.85rem; border-radius: 4px; transition: all 0.15s; }
+  .nav-links a:hover { background: var(--bg); color: var(--text); }
+  .article-wrapper { max-width: 740px; margin: 0 auto; padding: 100px 2rem 5rem; }
+  .breadcrumb { display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; color: var(--text-light); margin-bottom: 2rem; }
+  .breadcrumb a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb span { color: var(--border); }
+  .article-tag { display: inline-block; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); background: var(--accent2-light); padding: 0.2rem 0.6rem; border-radius: 3px; margin-bottom: 1rem; font-weight: 600; }
+  .article-title { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; color: var(--text); margin-bottom: 1rem; }
+  .article-meta { display: flex; align-items: center; gap: 1.25rem; font-size: 0.78rem; color: var(--text-light); padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); margin-bottom: 2rem; flex-wrap: wrap; }
+  .article-meta strong { color: var(--text-muted); font-weight: 600; }
+  .article-body { background: var(--bg-white); border: 1px solid var(--border); border-radius: 8px; padding: 2.5rem; }
+  .article-body p { font-size: 0.97rem; color: var(--text-muted); line-height: 1.9; margin-bottom: 1.4rem; }
+  .article-body h2 { font-size: 1.2rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin: 2rem 0 0.75rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+  .article-body h2:first-child { border-top: none; padding-top: 0; margin-top: 0; }
+  .article-body h3 { font-size: 1rem; font-weight: 700; color: var(--text); margin: 1.5rem 0 0.5rem; }
+  .article-body ul, .article-body ol { margin: 0.5rem 0 1.4rem 1.5rem; color: var(--text-muted); font-size: 0.95rem; line-height: 1.85; }
+  .article-body li { margin-bottom: 0.35rem; }
+  .article-body strong { color: var(--text); font-weight: 700; }
+  .article-body blockquote { border-left: 3px solid var(--accent); background: var(--accent-light); padding: 1rem 1.25rem; margin: 1.5rem 0; border-radius: 0 6px 6px 0; font-size: 0.95rem; color: var(--text-muted); font-style: italic; }
+  .article-body .callout { background: var(--accent2-light); border: 1px solid #b2d8cf; border-radius: 6px; padding: 1rem 1.25rem; margin: 1.5rem 0; font-size: 0.88rem; color: var(--accent2); font-weight: 600; }
+  .article-footer { margin-top: 2.5rem; display: flex; align-items: center; justify-content: space-between; padding-top: 1.5rem; border-top: 1px solid var(--border); gap: 1rem; flex-wrap: wrap; }
+  .btn-back { text-decoration: none; font-size: 0.82rem; font-weight: 600; padding: 0.6rem 1.2rem; border-radius: 4px; border: 1px solid var(--border); color: var(--text-muted); background: var(--bg); transition: all 0.15s; }
+  .btn-back:hover { background: var(--text); color: #fff; border-color: var(--text); }
+  .btn-next { text-decoration: none; font-size: 0.82rem; font-weight: 600; padding: 0.6rem 1.2rem; border-radius: 4px; background: var(--accent); color: #fff; border: 1px solid var(--accent); transition: all 0.15s; }
+  .btn-next:hover { background: #c96d00; border-color: #c96d00; }
+  .related { margin-top: 3rem; }
+  .related-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-light); font-weight: 600; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+  .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+  .related-card { background: var(--bg-white); border: 1px solid var(--border); border-radius: 7px; padding: 1.1rem; text-decoration: none; transition: all 0.15s; display: block; }
+  .related-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .related-card .rtag { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); font-weight: 600; margin-bottom: 0.4rem; display: block; }
+  .related-card h4 { font-size: 0.85rem; font-weight: 700; color: var(--text); line-height: 1.4; }
+  footer { background: var(--text); color: #ccc; padding: 2rem; text-align: center; margin-top: 4rem; }
+  .footer-logo { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0.25rem; }
+  .footer-logo span { color: var(--accent); }
+  .footer-credit { font-size: 0.73rem; color: #666; margin-top: 0.5rem; }
+  .footer-credit strong { color: #aaa; }
+  @media (max-width: 768px) { nav { padding: 0 1.25rem; } .nav-links { display: none; } .article-wrapper { padding: 80px 1.25rem 3rem; } .article-body { padding: 1.5rem; } }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo">
+    <span class="logo-mark">A365</span>
+    <span class="logo-text">Automat<span>365</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#home">Home</a></li>
+    <li><a href="index.html#trending">Building Automation</a></li>
+    <li><a href="index.html#insights">Industrial Automation</a></li>
+    <li><a href="index.html#whatsnew">Blog / News</a></li>
+    <li><a href="index.html#about">About</a></li>
+  </ul>
+</nav>
+<div class="article-wrapper">
+  <div class="breadcrumb">
+    <a href="index.html">Home</a><span>›</span>
+    <a href="index.html#trending">Building Automation</a><span>›</span>
+    <span>What is Building Automation?</span>
+  </div>
+  <span class="article-tag">Beginner Guide</span>
+  <h1 class="article-title">What is Building Automation? A Beginner's Guide</h1>
+  <div class="article-meta">
+    <span>By <strong>Homer Velasco</strong></span>
+    <span>May 2025</span>
+    <span>6 min read</span>
+  </div>
+  <div class="article-body">
+    <p>If you've ever walked into a modern office building and noticed the lights turning on automatically, the temperature staying perfectly comfortable, or the security system greeting you at the door — you've already experienced building automation in action. But what exactly is it, and how does it work?</p>
+
+    <h2>What is Building Automation?</h2>
+    <p>Building automation, also known as a Building Automation System (BAS) or Building Management System (BMS), is a centralized system that controls and monitors a building's mechanical, electrical, and plumbing systems. Think of it as the "brain" of a building — one that keeps everything running efficiently, safely, and comfortably without constant human input.</p>
+    <p>These systems can manage heating, ventilation, and air conditioning (HVAC), lighting, security and access control, fire and safety systems, and even elevators — all from a single interface.</p>
+
+    <blockquote>"A building automation system turns a passive structure into an intelligent, responsive environment."</blockquote>
+
+    <h2>Key Components of a Building Automation System</h2>
+    <p>A typical BAS is made up of several interconnected components that work together seamlessly:</p>
+    <ul>
+      <li><strong>Sensors</strong> — These collect data from the environment, measuring temperature, humidity, occupancy, CO2 levels, and more.</li>
+      <li><strong>Controllers</strong> — The decision-makers of the system. They receive data from sensors and send commands to equipment. Common types include DDC (Direct Digital Controllers) and PLCs.</li>
+      <li><strong>Actuators</strong> — Devices that physically carry out the commands, such as opening a valve, adjusting a damper, or switching on a light.</li>
+      <li><strong>Communication Networks</strong> — The pathways that connect all components. Common protocols include BACnet, Modbus, and LonWorks.</li>
+      <li><strong>User Interface / HMI</strong> — The dashboard where operators can monitor the system, adjust settings, and review reports — often accessible from a computer or mobile device.</li>
+    </ul>
+
+    <h2>What Does Building Automation Control?</h2>
+    <p>The scope of a building automation system can vary depending on the building's size and requirements, but the most common systems cover:</p>
+    <ul>
+      <li><strong>HVAC</strong> — Maintaining comfortable temperatures while minimizing energy use</li>
+      <li><strong>Lighting</strong> — Adjusting brightness based on occupancy and daylight levels</li>
+      <li><strong>Access Control & Security</strong> — Managing who enters and exits the building</li>
+      <li><strong>Fire & Life Safety</strong> — Monitoring smoke detectors, sprinklers, and alarms</li>
+      <li><strong>Energy Management</strong> — Tracking and reducing overall energy consumption</li>
+    </ul>
+
+    <div class="callout">💡 Did you know? Buildings account for nearly 40% of global energy consumption. A well-implemented BAS can reduce a building's energy use by 20–30%.</div>
+
+    <h2>Why Does Building Automation Matter?</h2>
+    <p>Building automation isn't just about convenience — it has real, measurable benefits for building owners, occupants, and the environment.</p>
+    <p><strong>Energy Efficiency:</strong> Automated systems only use energy when and where it's needed. Lights turn off in empty rooms, HVAC adjusts based on occupancy schedules, and equipment runs during off-peak hours to reduce costs.</p>
+    <p><strong>Comfort and Productivity:</strong> Studies show that comfortable indoor environments improve worker productivity and well-being. A well-tuned BAS maintains consistent conditions throughout the day.</p>
+    <p><strong>Reduced Maintenance Costs:</strong> Automation systems can detect faults and inefficiencies early — often before they become expensive problems. This predictive capability saves money on repairs and extends equipment life.</p>
+    <p><strong>Sustainability:</strong> By optimizing energy use, BAS plays a significant role in helping buildings meet green building certifications like LEED and BREEAM.</p>
+
+    <h2>Who Works in Building Automation?</h2>
+    <p>Building automation is a growing field that brings together professionals from various disciplines. If you're considering a career in this space, roles include building automation technicians, controls engineers, systems integrators, energy managers, and facilities managers. Whether you come from an electrical, mechanical, or IT background, there's a place for you in this industry.</p>
+
+    <h2>Conclusion</h2>
+    <p>Building automation is the foundation of smart, efficient, and sustainable buildings. From the sensors that detect your presence to the controllers that keep you comfortable, every component works together to create intelligent spaces that adapt to the people inside them.</p>
+    <p>Whether you're just starting to explore this field or looking to deepen your understanding, Automat365 is here to guide you every step of the way. Explore our other articles to continue your journey into the world of automation.</p>
+  </div>
+
+  <div class="article-footer">
+    <a href="index.html" class="btn-back">← Back to Home</a>
+    <a href="top-5-industrial-automation-trends.html" class="btn-next">Next: Top 5 Industrial Trends →</a>
+  </div>
+
+  <div class="related">
+    <p class="related-label">Related Articles</p>
+    <div class="related-grid">
+      <a href="smart-homes-vs-smart-buildings.html" class="related-card"><span class="rtag">Smart Buildings</span><h4>Smart Homes vs. Smart Buildings: Key Differences</h4></a>
+      <a href="future-of-building-automation.html" class="related-card"><span class="rtag">Future</span><h4>The Future of Building Automation: Smarter, Greener, Safer</h4></a>
+      <a href="ai-in-automation.html" class="related-card"><span class="rtag">AI & Tech</span><h4>AI in Automation: Opportunities & Challenges</h4></a>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="footer-logo">Automat<span>365</span></div>
+  <p class="footer-credit">by <strong>Homer Velasco</strong> &nbsp;·&nbsp; Founder of Automat365 &nbsp;·&nbsp; Enthusiast in Building & Industrial Automation</p>
+</footer>
+</body>
+</html>
