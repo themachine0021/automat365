@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Automation Training & Documentation — Automat365</title>
+<style>
+  :root { --bg: #f5f5f5; --bg-white: #ffffff; --accent: #e07b00; --accent-light: #fff3e0; --accent2: #007a5e; --accent2-light: #e6f4f0; --text: #1a1a1a; --text-muted: #555555; --text-light: #888888; --border: #e0e0e0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; font-size: 15px; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--bg-white); border-bottom: 1px solid var(--border); height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; }
+  .logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+  .logo-mark { background: var(--accent); color: #fff; font-weight: 700; font-size: 0.85rem; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 5px; }
+  .logo-text { font-size: 1rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
+  .logo-text span { color: var(--accent); }
+  .nav-links { display: flex; gap: 0.1rem; list-style: none; }
+  .nav-links a { text-decoration: none; font-size: 0.82rem; color: var(--text-muted); padding: 0.4rem 0.85rem; border-radius: 4px; transition: all 0.15s; }
+  .nav-links a:hover { background: var(--bg); color: var(--text); }
+  .nav-links a.active { color: var(--accent); font-weight: 600; }
+
+  /* PAGE HEADER */
+  .page-header {
+    background: var(--bg-white);
+    border-bottom: 1px solid var(--border);
+    padding: 5rem 2rem 3rem;
+    text-align: center;
+  }
+  .page-eyebrow { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent2); font-weight: 600; margin-bottom: 0.6rem; }
+  .page-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; letter-spacing: -0.03em; color: var(--text); margin-bottom: 0.75rem; }
+  .page-desc { font-size: 0.97rem; color: var(--text-muted); max-width: 580px; margin: 0 auto; line-height: 1.8; }
+
+  /* VIDEOS GRID */
+  .page-wrapper { max-width: 1080px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+  .section-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-light); font-weight: 600; margin-bottom: 1.25rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+
+  .videos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; margin-bottom: 3rem; }
+
+  .video-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.2s;
+  }
+  .video-card:hover { border-color: var(--accent); box-shadow: 0 6px 24px rgba(0,0,0,0.08); transform: translateY(-3px); }
+
+  .video-embed {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    overflow: hidden;
+    background: #000;
+  }
+  .video-embed iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+  }
+
+  .video-info { padding: 1.25rem; }
+
+  .video-tag {
+    display: inline-block;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    background: var(--accent2-light);
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+  }
+
+  .video-title { font-size: 0.95rem; font-weight: 700; color: var(--text); line-height: 1.4; margin-bottom: 0.5rem; }
+  .video-desc { font-size: 0.83rem; color: var(--text-muted); line-height: 1.7; }
+
+  .video-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .yt-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #ff0000;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .yt-link:hover { opacity: 0.75; }
+
+  /* CHANNEL BANNER */
+  .channel-banner {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent);
+    border-radius: 10px;
+    padding: 2rem;
+    text-align: center;
+    margin-top: 1rem;
+  }
+  .channel-banner h3 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+  .channel-banner p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+  .yt-subscribe {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #ff0000;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0.65rem 1.5rem;
+    border-radius: 4px;
+    transition: background 0.15s;
+  }
+  .yt-subscribe:hover { background: #cc0000; }
+
+  /* BACK LINK */
+  .back-link { display: inline-flex; align-items: center; gap: 0.4rem; text-decoration: none; font-size: 0.82rem; font-weight: 600; color: var(--text-muted); padding: 0.6rem 1.2rem; border: 1px solid var(--border); border-radius: 4px; background: var(--bg); margin-bottom: 2rem; transition: all 0.15s; }
+  .back-link:hover { background: var(--text); color: #fff; }
+
+  footer { background: var(--text); color: #ccc; padding: 2rem; text-align: center; margin-top: 2rem; }
+  .footer-logo { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0.25rem; }
+  .footer-logo span { color: var(--accent); }
+  .footer-credit { font-size: 0.73rem; color: #666; margin-top: 0.5rem; }
+  .footer-credit strong { color: #aaa; }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links { display: none; }
+    .page-wrapper { padding: 2rem 1.25rem 3rem; }
+    .videos-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo"><span class="logo-mark">A365</span><span class="logo-text">Automat<span>365</span></span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#home">Home</a></li>
+    <li><a href="index.html#trending">Building Automation</a></li>
+    <li><a href="index.html#sensors">Sensors</a></li>
+    <li><a href="index.html#insights">Industrial Automation</a></li>
+    <li><a href="index.html#whatsnew">Blog / News</a></li>
+    <li><a href="training-documentation.html" class="active">Training</a></li>
+    <li><a href="index.html#about">About</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <p class="page-eyebrow">Learn at Your Own Pace</p>
+  <h1 class="page-title">Automation Training & Documentation</h1>
+  <p class="page-desc">Practical video guides for technicians, engineers, and anyone curious about how building automation systems work in the real world. Straight from the field — no fluff.</p>
+</div>
+
+<div class="page-wrapper">
+
+  <a href="index.html" class="back-link">← Back to Home</a>
+
+  <p class="section-label">Video Tutorials — Building Automation</p>
+
+  <div class="videos-grid">
+
+    <!-- VIDEO 1 -->
+    <div class="video-card">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/-IjI0vFkQds" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-info">
+        <span class="video-tag">HVAC / Ventilation</span>
+        <h3 class="video-title">How to Calculate ACH (Air Changes per Hour)</h3>
+        <p class="video-desc">Learn how to calculate Air Changes per Hour — a key metric in HVAC design and building ventilation that ensures proper air quality and code compliance.</p>
+        <div class="video-footer">
+          <a href="https://youtu.be/-IjI0vFkQds" class="yt-link" target="_blank">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.15a8.16 8.16 0 004.77 1.52V7.23a4.85 4.85 0 01-1-.54z"/></svg>
+            Watch on YouTube
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIDEO 2 -->
+    <div class="video-card">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/8k0Rd5j-qPY" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-info">
+        <span class="video-tag">Sensors / BAS</span>
+        <h3 class="video-title">How Sensors Work in Building Automation</h3>
+        <p class="video-desc">A practical breakdown of how sensors function as the input devices of a Building Automation System — from temperature and humidity to occupancy and CO₂.</p>
+        <div class="video-footer">
+          <a href="https://youtu.be/8k0Rd5j-qPY" class="yt-link" target="_blank">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.15a8.16 8.16 0 004.77 1.52V7.23a4.85 4.85 0 01-1-.54z"/></svg>
+            Watch on YouTube
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIDEO 3 -->
+    <div class="video-card">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/IclueQ4kdNM" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-info">
+        <span class="video-tag">Pumps / Controls</span>
+        <h3 class="video-title">How Pressure Switch Controls a Jockey Pump</h3>
+        <p class="video-desc">Understand how a pressure switch is used to automatically control a jockey pump in a fire protection system — a critical concept for building services engineers.</p>
+        <div class="video-footer">
+          <a href="https://youtu.be/IclueQ4kdNM" class="yt-link" target="_blank">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.15a8.16 8.16 0 004.77 1.52V7.23a4.85 4.85 0 01-1-.54z"/></svg>
+            Watch on YouTube
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIDEO 4 -->
+    <div class="video-card">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/76qbQGQQyF0" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-info">
+        <span class="video-tag">AHU / HVAC</span>
+        <h3 class="video-title">Exploring the Role of Air Handling Units (AHUs)</h3>
+        <p class="video-desc">A comprehensive look at Air Handling Units — their components, how they function in a building's HVAC system, and their role in maintaining indoor air quality and comfort.</p>
+        <div class="video-footer">
+          <a href="https://youtu.be/76qbQGQQyF0" class="yt-link" target="_blank">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.15a8.16 8.16 0 004.77 1.52V7.23a4.85 4.85 0 01-1-.54z"/></svg>
+            Watch on YouTube
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIDEO 5 -->
+    <div class="video-card">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/1Kcny4zoYj4" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-info">
+        <span class="video-tag">BMS / Monitoring</span>
+        <h3 class="video-title">Understanding AHU Filter Monitoring in BMS</h3>
+        <p class="video-desc">Learn how Building Management Systems monitor AHU filter conditions using differential pressure sensors — preventing blockages, improving air quality, and reducing maintenance costs.</p>
+        <div class="video-footer">
+          <a href="https://youtu.be/1Kcny4zoYj4" class="yt-link" target="_blank">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.15a8.16 8.16 0 004.77 1.52V7.23a4.85 4.85 0 01-1-.54z"/></svg>
+            Watch on YouTube
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CHANNEL BANNER -->
+  <div class="channel-banner">
+    <h3>Want more training videos?</h3>
+    <p>Subscribe to the Automat365 YouTube channel for new tutorials, field guides, and automation walkthroughs — uploaded regularly.</p>
+    <a href="https://www.youtube.com/@Automat365" class="yt-subscribe" target="_blank">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      Subscribe on YouTube
+    </a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-logo">Automat<span>365</span></div>
+  <p class="footer-credit">by <strong>Homer Velasco</strong> &nbsp;·&nbsp; Founder of Automat365 &nbsp;·&nbsp; Enthusiast in Building & Industrial Automation</p>
+</footer>
+
+</body>
+</html>
