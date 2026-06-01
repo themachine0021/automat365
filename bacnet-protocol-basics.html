@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BACnet Protocol Basics: Objects, Instances & Network Communication | Automat365</title>
+<meta name="description" content="A field guide to BACnet protocol — how building automation systems achieve interoperability using objects, instances, properties, and BACnet/IP.">
+<style>
+  :root {
+    --bg: #f5f5f0;
+    --bg-white: #ffffff;
+    --text: #1a1a1a;
+    --text-muted: #555;
+    --border: #e0e0d8;
+    --accent: #e07b00;
+    --accent-teal: #007b7b;
+    --tag-bg: #e8f4f4;
+    --tag-color: #007b7b;
+    --code-bg: #f0efeb;
+    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; font-size: 16px; }
+
+  /* NAV */
+  nav { background: var(--bg-white); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-size: 1.2rem; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: -0.3px; }
+  .nav-logo span { color: var(--accent); }
+  .nav-back { font-size: 0.85rem; color: var(--accent-teal); text-decoration: none; display: flex; align-items: center; gap: 5px; }
+  .nav-back:hover { text-decoration: underline; }
+
+  /* HERO */
+  .article-hero { background: var(--bg-white); border-bottom: 1px solid var(--border); padding: 48px 24px 40px; }
+  .article-hero .inner { max-width: 800px; margin: 0 auto; }
+  .tag { display: inline-block; background: var(--tag-bg); color: var(--tag-color); font-size: 0.75rem; font-weight: 600; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; }
+  .article-title { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 700; line-height: 1.25; color: var(--text); margin-bottom: 16px; letter-spacing: -0.3px; }
+  .article-meta { font-size: 0.85rem; color: var(--text-muted); display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+  .article-meta span { display: flex; align-items: center; gap: 5px; }
+
+  /* PDF DOWNLOAD BANNER */
+  .pdf-banner { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); color: #fff; padding: 20px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; border-radius: 10px; margin: 32px auto; max-width: 800px; flex-wrap: wrap; }
+  .pdf-banner-text { flex: 1; min-width: 200px; }
+  .pdf-banner-text p { font-size: 0.82rem; color: #aaa; margin-top: 3px; }
+  .pdf-banner-text strong { font-size: 1rem; }
+  .pdf-download-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; text-decoration: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; font-size: 0.88rem; white-space: nowrap; transition: background 0.2s; }
+  .pdf-download-btn:hover { background: #c56e00; }
+  .pdf-icon { font-size: 1.1rem; }
+
+  /* CONTENT */
+  .article-body { max-width: 800px; margin: 0 auto; padding: 40px 24px 60px; }
+
+  /* FIELD GUIDE IMAGE */
+  .field-guide-img { width: 100%; max-width: 640px; display: block; margin: 0 auto 36px; border: 1px solid var(--border); border-radius: 10px; box-shadow: var(--shadow); }
+
+  .article-body p { margin-bottom: 20px; color: var(--text-muted); }
+  .article-body h2 { font-size: 1.3rem; font-weight: 700; color: var(--text); margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); display: inline-block; }
+  .article-body h3 { font-size: 1.05rem; font-weight: 700; color: var(--text); margin: 24px 0 10px; }
+  .article-body ul, .article-body ol { margin: 0 0 20px 24px; color: var(--text-muted); }
+  .article-body li { margin-bottom: 8px; }
+  .article-body strong { color: var(--text); font-weight: 600; }
+
+  /* TABLE */
+  .summary-table { width: 100%; border-collapse: collapse; margin: 24px 0 36px; font-size: 0.9rem; box-shadow: var(--shadow); border-radius: 8px; overflow: hidden; }
+  .summary-table th { background: #1a1a1a; color: #fff; padding: 12px 16px; text-align: left; font-weight: 600; }
+  .summary-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: top; background: var(--bg-white); }
+  .summary-table tr:last-child td { border-bottom: none; }
+  .summary-table tr:hover td { background: #f9f9f5; }
+
+  /* CALLOUT BOX */
+  .callout { background: #e8f4f4; border-left: 4px solid var(--accent-teal); padding: 18px 20px; border-radius: 0 8px 8px 0; margin: 28px 0; }
+  .callout p { margin: 0; color: var(--text); font-size: 0.95rem; }
+  .callout strong { color: var(--accent-teal); }
+
+  /* REFERENCES */
+  .references { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 24px; margin-top: 40px; }
+  .references h3 { font-size: 1rem; font-weight: 700; margin-bottom: 14px; color: var(--text); }
+  .references p { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 10px; line-height: 1.6; }
+  .references a { color: var(--accent-teal); }
+
+  /* SHARE BUTTONS */
+  .share-section { margin: 40px 0; padding: 28px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .share-section p { font-size: 0.88rem; font-weight: 600; color: var(--text-muted); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .share-buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+  .share-btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 18px; border-radius: 6px; font-size: 0.84rem; font-weight: 600; text-decoration: none; cursor: pointer; border: none; transition: opacity 0.2s; }
+  .share-btn:hover { opacity: 0.85; }
+  .share-fb { background: #1877f2; color: #fff; }
+  .share-li { background: #0a66c2; color: #fff; }
+  .share-tw { background: #000; color: #fff; }
+  .share-copy { background: var(--bg-white); color: var(--text); border: 1px solid var(--border); }
+
+  /* ALIEXPRESS BANNER */
+  .affiliate-banner { background: linear-gradient(135deg, #ff6600 0%, #ff8c00 100%); border-radius: 10px; padding: 22px 28px; margin: 32px 0; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; box-shadow: var(--shadow); }
+  .affiliate-banner-text { flex: 1; min-width: 200px; }
+  .affiliate-banner-text p { font-size: 0.82rem; color: rgba(255,255,255,0.8); margin: 3px 0 0; }
+  .affiliate-banner-text strong { font-size: 1rem; color: #fff; }
+  .affiliate-btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #ff6600; font-weight: 700; font-size: 0.88rem; text-decoration: none; padding: 10px 22px; border-radius: 6px; white-space: nowrap; transition: background 0.2s; }
+  .affiliate-btn:hover { background: #fff5ee; }
+
+  /* BACK LINK */
+  .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--accent-teal); text-decoration: none; font-size: 0.88rem; margin-top: 20px; }
+  .back-link:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer { background: #1a1a1a; color: #ccc; text-align: center; padding: 28px 20px; font-size: 0.82rem; margin-top: 0; }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  @media (max-width: 600px) {
+    .pdf-banner { flex-direction: column; }
+    .affiliate-banner { flex-direction: column; }
+    .article-hero { padding: 32px 16px 28px; }
+    .article-body { padding: 28px 16px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">Automat<span>365</span></a>
+  <a class="nav-back" href="index.html">← Back to Home</a>
+</nav>
+
+<!-- HERO -->
+<div class="article-hero">
+  <div class="inner">
+    <span class="tag">Building Automation</span>
+    <h1 class="article-title">BACnet Protocol Basics: A Field Guide to Objects, Instances &amp; Network Communication</h1>
+    <div class="article-meta">
+      <span>📅 2025</span>
+      <span>🌐 automat365.net</span>
+      <span>⏱ 5 min read</span>
+    </div>
+  </div>
+</div>
+
+<!-- PDF DOWNLOAD BANNER -->
+<div style="padding: 0 24px;">
+  <div class="pdf-banner">
+    <div class="pdf-banner-text">
+      <strong>📄 Download the Field Guide PDF</strong>
+      <p>Get the visual reference poster for BACnet Protocol Basics — free download.</p>
+    </div>
+    <a class="pdf-download-btn" href="BACnet_Field_Guide.pdf" download>
+      <span class="pdf-icon">⬇</span> Download PDF
+    </a>
+  </div>
+</div>
+
+<!-- ARTICLE BODY -->
+<div class="article-body">
+
+  <!-- Field guide image from the PDF -->
+  <img class="field-guide-img" src="BACnet_Field_Guide_poster.jpg" alt="BACnet Protocol Basics Field Guide — visual diagram of BACnet device structure, objects, instances, and network communication" onerror="this.style.display='none'">
+
+  <p>BACnet (Building Automation and Control networks) is an international standard (ISO 16484-6) developed by ASHRAE, designed to facilitate communication between different building automation and control systems. By providing a standardized language, it allows devices from various manufacturers to interoperate seamlessly — which is essential for energy-efficient building management.</p>
+
+  <div class="callout">
+    <p><strong>What is BACnet?</strong> An open protocol that lets controllers, sensors, and software from different manufacturers talk to each other — no proprietary drivers needed.</p>
+  </div>
+
+  <h2>Core Concepts of BACnet</h2>
+
+  <h3>1. The BACnet Device</h3>
+  <p>Every BACnet-compliant system consists of <strong>Devices</strong>. A device is essentially a physical or logical entity on the network — for example, a thermostat, a lighting controller, or an air handling unit (AHU) controller. Every device is represented by a single <strong>Device Object</strong>, which must have a unique identifier across the entire BACnet internetwork.</p>
+
+  <h3>2. Objects: The Building Blocks of Data</h3>
+  <p>BACnet uses an <strong>object-oriented</strong> approach to represent data. Instead of raw memory addresses, it organizes information into "objects" that define what the data is and how it behaves. Standard object types include:</p>
+  <ul>
+    <li><strong>Analog Input / Output (AI/AO):</strong> Represents sensors or actuators with continuous values, such as temperature readings.</li>
+    <li><strong>Binary Input / Output (BI/BO):</strong> Represents on/off or digital states, such as switch or valve status.</li>
+    <li><strong>Analog / Binary Value:</strong> Used for software-based setpoints or parameters.</li>
+    <li><strong>Trend Log / Schedule:</strong> Specialized objects for time-based data or historical recording.</li>
+  </ul>
+
+  <h3>3. Properties and Instances</h3>
+  <p>Every object contains a set of <strong>Properties</strong> — such as <em>Present_Value</em>, <em>Object_Name</em>, and <em>Reliability</em> — that describe its current state.</p>
+  <p>Within a device, each object is uniquely identified by an <strong>Object Type</strong> combined with an <strong>Instance Number</strong>. For example, two temperature sensors in the same device might be identified as <em>Analog Input 1</em> and <em>Analog Input 2</em>. This combination must be unique within that specific device.</p>
+
+  <div class="callout">
+    <p><strong>Example:</strong> Analog Input 1 → Object_Name: Zone Temp 1 | Present_Value: 72.5°F | Reliability: No Fault</p>
+  </div>
+
+  <h2>Network Communication</h2>
+  <p>BACnet does not rely on a single physical medium. Instead, it defines a standard "application layer" that can operate over various networking technologies.</p>
+
+  <h3>Data Representation</h3>
+  <p>When a system requests data, it asks for specific properties of a specific object within a specific device. Because the objects are "network-visible," the requesting device does not need to know the controller's internal programming or hardware layout — it simply interacts with the object.</p>
+
+  <h3>Interoperability</h3>
+  <p>Because the BACnet standard defines exactly how objects and properties must behave, a third-party software system can read an Analog Input from a controller made by Manufacturer A and write to an Analog Output on a controller made by Manufacturer B — without needing proprietary drivers for each.</p>
+
+  <h3>BACnet/IP</h3>
+  <p>For modern building networks, BACnet is frequently encapsulated within IP (Internet Protocol) frames. This allows BACnet messages to traverse standard enterprise Ethernet and Wi-Fi infrastructure, often requiring specialized routers or Packet-Assembler-Disassemblers (PADs) to connect different physical subnets.</p>
+
+  <h2>Summary Table</h2>
+  <table class="summary-table">
+    <thead>
+      <tr>
+        <th>Concept</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Device</strong></td>
+        <td>A unique, network-accessible controller with a globally unique Device Instance Number.</td>
+      </tr>
+      <tr>
+        <td><strong>Object</strong></td>
+        <td>A standardized way to represent a piece of data — sensor reading, actuator command, setpoint, etc.</td>
+      </tr>
+      <tr>
+        <td><strong>Instance</strong></td>
+        <td>A unique number assigned to an object type within a device to distinguish it from others of the same type.</td>
+      </tr>
+      <tr>
+        <td><strong>Property</strong></td>
+        <td>Attributes of an object (e.g., Present_Value, Object_Name) that define and describe its current state.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- AliExpress Banner -->
+  <div class="affiliate-banner">
+    <div class="affiliate-banner-text">
+      <strong>🛒 Shop Building Automation Components</strong>
+      <p>Find BACnet controllers, sensors, and networking gear on AliExpress</p>
+    </div>
+    <a class="affiliate-btn" href="https://www.aliexpress.com" target="_blank" rel="noopener">
+      Shop Now →
+    </a>
+  </div>
+
+  <!-- SHARE -->
+  <div class="share-section">
+    <p>Share this article</p>
+    <div class="share-buttons">
+      <a class="share-btn share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://automat365.net/bacnet-protocol-basics.html" target="_blank" rel="noopener">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+        Facebook
+      </a>
+      <a class="share-btn share-li" href="https://www.linkedin.com/sharing/share-offsite/?url=https://automat365.net/bacnet-protocol-basics.html" target="_blank" rel="noopener">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a class="share-btn share-tw" href="https://twitter.com/intent/tweet?url=https://automat365.net/bacnet-protocol-basics.html&text=BACnet Protocol Basics: A Field Guide to Objects, Instances & Network Communication" target="_blank" rel="noopener">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        X / Twitter
+      </a>
+      <button class="share-btn share-copy" onclick="navigator.clipboard.writeText(window.location.href).then(()=>{this.textContent='✓ Copied!';setTimeout(()=>{this.innerHTML='🔗 Copy Link'},2000)})">
+        🔗 Copy Link
+      </button>
+    </div>
+  </div>
+
+  <!-- REFERENCES -->
+  <div class="references">
+    <h3>References</h3>
+    <p>Bushby, S. T. (1997). BACnet™: a standard communication infrastructure for intelligent buildings. <em>Automation in Construction</em>, 6(5–6), 529–540. <a href="https://doi.org/10.1016/s0926-5805(97)00029-0" target="_blank" rel="noopener">doi.org/10.1016/s0926-5805(97)00029-0</a></p>
+    <p>Newman, H. M. (2013). <em>BACnet® Explained</em>. BACnet.org. <a href="https://bacnet.org/wp-content/uploads/sites/4/2022/06/Newman-2013.pdf" target="_blank" rel="noopener">bacnet.org</a></p>
+    <p>Ulmer, R., &amp; Müller, J. (2019). User-oriented verification of automation stations. <em>E3S Web of Conferences</em>, 111, 05024. <a href="https://doi.org/10.1051/e3sconf/201911105024" target="_blank" rel="noopener">doi.org/10.1051/e3sconf/201911105024</a></p>
+  </div>
+
+  <a class="back-link" href="index.html">← Back to all articles</a>
+</div>
+
+<footer>
+  <p>© 2025 <a href="index.html">Automat365</a> · www.automat365.net · All rights reserved.</p>
+</footer>
+
+</body>
+</html>
